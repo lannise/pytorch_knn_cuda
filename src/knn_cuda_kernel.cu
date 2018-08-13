@@ -211,7 +211,7 @@ __global__ void cuParallelSqrt(float *dist, int width, int k){
 void knn_device(float* ref_dev, int ref_nb, float* query_dev, int query_nb,
     int dim, int k, float* dist_dev, long* ind_dev, cudaStream_t stream){
 
-  // Grids ans threads
+  // Grids and threads
   dim3 g_16x16(query_nb/16, ref_nb/16, 1);
   dim3 t_16x16(16, 16, 1);
   if (query_nb%16 != 0) g_16x16.x += 1;
@@ -235,7 +235,7 @@ void knn_device(float* ref_dev, int ref_nb, float* query_dev, int query_nb,
       query_nb, ref_nb, k);
 
   // Kernel 3: Compute square root of k first elements
-  cuParallelSqrt<<<g_k_16x16,t_k_16x16, 0, stream>>>(dist_dev, query_nb, k);
+  // cuParallelSqrt<<<g_k_16x16,t_k_16x16, 0, stream>>>(dist_dev, query_nb, k);
 
 #if DEBUG
   unsigned int  size_of_float = sizeof(float);
