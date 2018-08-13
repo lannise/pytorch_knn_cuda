@@ -15,8 +15,8 @@ class KNearestNeighbor(Function):
     ref = ref.float().cuda()
     query = query.float().cuda()
 
-    inds = torch.empty(self.k, query.shape[1]).long().cuda()
-    dists = torch.empty(self.k, query.shape[1]).float().cuda()
+    inds = torch.empty(query.shape[0], self.k, query.shape[2]).long().cuda()
+    dists = torch.empty(query.shape[0], self.k, query.shape[2]).float().cuda()
 
     knn_pytorch.knn(ref, query, inds, dists)
 
