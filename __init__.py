@@ -26,8 +26,8 @@ class TestKNearestNeighbor(unittest.TestCase):
 
   def test_forward(self):
     D, N, M = 128, 100, 1000
-    ref = Variable(torch.rand(D, N))
-    query = Variable(torch.rand(D, M))
+    ref = Variable(torch.rand(2, D, N))
+    query = Variable(torch.rand(2, D, M))
 
     inds = KNearestNeighbor(2)(ref, query)
     print inds
