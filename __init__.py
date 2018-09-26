@@ -17,7 +17,8 @@ class KNearestNeighbor(Function):
 
     inds = torch.empty(query.shape[0], self.k, query.shape[2]).long().cuda()
 
-    knn_pytorch.knn(ref, query, inds)
+    # make sure inputs are contiguous
+    knn_pytorch.knn(ref.contiguous(), query.contiguous(), inds.contiguous())
 
     return inds
 
@@ -30,7 +31,7 @@ class TestKNearestNeighbor(unittest.TestCase):
     query = Variable(torch.rand(2, D, M))
 
     inds = KNearestNeighbor(2)(ref, query)
-    print inds
+    # print inds
 
 
 if __name__ == '__main__':

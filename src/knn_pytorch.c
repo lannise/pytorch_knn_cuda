@@ -15,8 +15,9 @@ int knn(THCudaTensor *ref_tensor, THCudaTensor *query_tensor,
   THArgCheck(THCudaTensor_size(state, ref_tensor, 1) == THCudaTensor_size(state, query_tensor,1), 0, "input sizes must match");
   THArgCheck(THCudaTensor_size(state, idx_tensor, 2) == THCudaTensor_size(state, query_tensor,2), 0, "input sizes must match");
 
-  ref_tensor = THCudaTensor_newContiguous(state, ref_tensor);
-  query_tensor = THCudaTensor_newContiguous(state, query_tensor);
+  // allocating newCont tensors for inputs is a mess. assume tensors are continuous
+  //  ref_tensor = THCudaTensor_newContiguous(state, ref_tensor);
+  //  query_tensor = THCudaTensor_newContiguous(state, query_tensor);
 
   batch = THCudaLongTensor_size(state, ref_tensor, 0);
   dim = THCudaTensor_size(state, ref_tensor, 1);
